@@ -434,6 +434,38 @@ document.addEventListener("DOMContentLoaded", function () {
   // Reseteamos el flag de recarga cuando la página se carga
   recargandoPagina = false;
 
+  // Verificar si la partida está pausada y añadir clase de animación al botón de pausa
+  const btnPausa = document.getElementById("btnPausa");
+  if (btnPausa && btnPausa.textContent.includes("▶️")) {
+    // Si el botón muestra ▶️, significa que está pausado
+    btnPausa.classList.add("pausa-activa");
+  }
+
+  // FIX: Forzar funcionamiento de botones de movimiento
+  // Añadimos event listeners a todos los botones de movimiento
+  document.addEventListener('click', function(e) {
+    // Si se hizo clic en el botón de movimiento o en su span hijo
+    const botonMovimiento = e.target.closest('.btn-movimiento');
+    if (botonMovimiento) {
+      e.preventDefault(); // Prevenir comportamiento por defecto
+      e.stopPropagation(); // Detener propagación
+      
+      // Obtener el formulario padre
+      const formulario = botonMovimiento.closest('form');
+      if (formulario) {
+        // Crear un input hidden con el valor del botón
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = botonMovimiento.name; // 'seleccionar_casilla'
+        input.value = botonMovimiento.value; // 'E4', etc
+        formulario.appendChild(input);
+        
+        // Enviar el formulario manualmente
+        formulario.submit();
+      }
+    }
+  }, true); // Usar capture phase para capturar antes que otros listeners
+
   // Si no hay un intervalo de relojes activo, lo iniciamos
   if (!intervaloRelojes && document.getElementById("tiempo-blancas")) {
     // Primero sincronizamos con el servidor para verificar el estado de la partida

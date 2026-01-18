@@ -129,8 +129,8 @@ $partidasGuardadasInicio = $estado['partidasGuardadasInicio'];
         <?php
         // Si la partida está en pausa...
         if (isset($_SESSION['pausa']) && $_SESSION['pausa']) {
-          // ...mostramos que está pausada
-          echo "⏸️ PARTIDA EN PAUSA";
+          // ...mostramos que está pausada con instrucciones
+          echo "⏸️ PARTIDA EN PAUSA - Haz clic en el botón ▶️ para reanudar";
 
           // Si la partida terminó...
         } elseif ($partida && $partida->estaTerminada()) {
@@ -144,25 +144,12 @@ $partidasGuardadasInicio = $estado['partidasGuardadasInicio'];
         }
         ?>
       </div>
-      
-        <!-- Mostrar mensaje de la partida debajo del tablero -->
-        <?php 
-          $mensajeMostrar = !empty($mensaje) ? $mensaje : (isset($partida) && method_exists($partida, 'getMensaje') ? $partida->getMensaje() : '');
-        ?>
-        <div class="mensaje-partida" style="margin: 20px auto; max-width: 600px; text-align: center; color: #5568d3; font-size: 1.2em; background: #f3f6ff; border: 1px solid #5568d3; border-radius: 8px; padding: 10px;">
-          MENSAJE DE PRUEBA: Si ves esto, el recuadro funciona.
-        </div>
 
       <!-- Los relojes de cada jugador -->
       <?php mostrarRelojes($jugadores, $marcador); ?>
 
       <!-- El tablero de ajedrez con todas las piezas -->
       <?php mostrarTablero($partida, $casillaSeleccionada, $turno, $piezasCapturadas); ?>
-
-      <!-- MENSAJE DE PRUEBA: Si ves esto, el recuadro funciona. -->
-      <div class="mensaje-partida" style="margin: 20px auto; max-width: 600px; text-align: center; color: #5568d3; font-size: 1.2em; background: #f3f6ff; border: 1px solid #5568d3; border-radius: 8px; padding: 10px;">
-        MENSAJE DE PRUEBA: Si ves esto, el recuadro funciona.
-      </div>
     </div>
     <!-- Si la pantalla principal ya se mostró pero no hay nombres configurados, mostrar formulario -->
   <?php else: ?>

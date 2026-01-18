@@ -153,6 +153,9 @@ function aplicarConfigPredeterminada()
     if (!isset($_SESSION["pausa"])) {
       $_SESSION["pausa"] = false; // lo inicializamos en false
     }
+    if (!isset($_SESSION["casilla_seleccionada"])) {
+      $_SESSION["casilla_seleccionada"] = null; // Inicializamos la casilla seleccionada
+    }
   }
 }
 
@@ -200,6 +203,12 @@ function resolverAcciones()
     echo json_encode(['ok' => true, 'pausa' => $_SESSION['pausa']]);
 
     // Terminamos la ejecución del script
+    exit;
+  }
+
+  // Limpiar log de debug
+  if (isset($_POST['clear_debug'])) {
+    unset($_SESSION['debug_log']);
     exit;
   }
 
@@ -791,6 +800,28 @@ function revanchaPartida()
 // Para procesar una jugada realizada por el usuario
 function procesarJugada($partida)
 {
+  // DEBUG: Verificar si llega el POST
+  if (!isset($_SESSION['debug_log'])) {
+    $_SESSION['debug_log'] = [];
+  }
+  
+  if (isset($_POST['seleccionar_casilla'])) {
+    $log = "POST: " . $_POST['seleccionar_casilla'];
+    $log .= " | Pausa: " . (isset($_SESSION['pausa']) ? ($_SESSION['pausa'] ? 'SÍ' : 'NO') : 'NO');
+    $log .= " | Sel: " . ($_SESSION['casilla_seleccionada'] ?? 'NULL');
+    $_SESSION['debug_log'][] = $log;
+  } else {
+    $_SESSION['debug_log'][] = "NO hay POST de seleccionar_casilla";
+  }
+  
+  // Inicializamos variables de sesión si no existen
+  if (!isset($_SESSION['casilla_seleccionada'])) {
+    $_SESSION['casilla_seleccionada'] = null;
+  }
+  if (!isset($_SESSION['ultimo_tick'])) {
+    $_SESSION['ultimo_tick'] = time();
+  }
+
   // Procesar jugada (solo si no está en pausa)
   if (isset($_POST['seleccionar_casilla']) && (!isset($_SESSION['pausa']) || !$_SESSION['pausa'])) {
 

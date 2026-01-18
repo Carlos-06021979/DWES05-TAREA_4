@@ -37,6 +37,28 @@
   box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
 }
 
+/* Cuando la partida está pausada, el botón muestra play en verde pulsante */
+.btn-pausa.pausa-activa {
+  color: #4CAF50;
+  animation: pulse-play 1.5s infinite;
+}
+
+.btn-pausa.pausa-activa:hover {
+  background: #4CAF50;
+  box-shadow: 0 5px 20px rgba(76, 175, 80, 0.6);
+}
+
+@keyframes pulse-play {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px rgba(76, 175, 80, 0.5));
+  }
+  50% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 10px rgba(76, 175, 80, 0.8));
+  }
+}
+
 /* Botones de control del juego */
 .botones-control {
   display: flex;
