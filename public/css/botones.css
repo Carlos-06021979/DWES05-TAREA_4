@@ -49,10 +49,13 @@
 }
 
 @keyframes pulse-play {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     filter: drop-shadow(0 0 0px rgba(76, 175, 80, 0.5));
   }
+
   50% {
     transform: scale(1.15);
     filter: drop-shadow(0 0 10px rgba(76, 175, 80, 0.8));

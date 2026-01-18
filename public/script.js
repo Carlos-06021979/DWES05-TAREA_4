@@ -126,7 +126,7 @@ if (sliderRetrocesos && valorRetrocesos) {
 // Slider para pantalla inicial
 const sliderRetrocesosInicio = document.getElementById("num_retrocesos_inicio");
 const valorRetrocesosInicio = document.getElementById(
-  "num_retrocesos_valor_inicio"
+  "num_retrocesos_valor_inicio",
 );
 
 if (sliderRetrocesosInicio && valorRetrocesosInicio) {
@@ -137,10 +137,10 @@ if (sliderRetrocesosInicio && valorRetrocesosInicio) {
 // Deshabilitar selects de tiempo cuando se activa "sin tiempo" en pantalla inicial
 const chkSinTiempoInicio = document.getElementById("sin_tiempo_inicio");
 const selTiempoInicialInicio = document.querySelector(
-  '.config-form select[name="tiempo_inicial"]'
+  '.config-form select[name="tiempo_inicial"]',
 );
 const selIncrementoInicio = document.querySelector(
-  '.config-form select[name="incremento"]'
+  '.config-form select[name="incremento"]',
 );
 
 function aplicarEstadoSinTiempoInicio() {
@@ -200,7 +200,7 @@ if (formConfig && btnGuardarConfig && chkCoords && chkCapturas) {
 
       // Creamos un campo oculto para reanudar desde config
       let inputReanudar = formConfig.querySelector(
-        'input[name="reanudar_desde_configuracion"]'
+        'input[name="reanudar_desde_configuracion"]',
       );
       if (!inputReanudar) {
         inputReanudar = document.createElement("input");
@@ -399,7 +399,7 @@ function sincronizarConServidor() {
         // Log para debugging si la partida está en pausa
         if (data.pausa) {
           console.warn(
-            "⚠️ LA PARTIDA ESTÁ EN PAUSA - Los movimientos están bloqueados"
+            "⚠️ LA PARTIDA ESTÁ EN PAUSA - Los movimientos están bloqueados",
           );
         }
 
@@ -443,28 +443,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // FIX: Forzar funcionamiento de botones de movimiento
   // Añadimos event listeners a todos los botones de movimiento
-  document.addEventListener('click', function(e) {
-    // Si se hizo clic en el botón de movimiento o en su span hijo
-    const botonMovimiento = e.target.closest('.btn-movimiento');
-    if (botonMovimiento) {
-      e.preventDefault(); // Prevenir comportamiento por defecto
-      e.stopPropagation(); // Detener propagación
-      
-      // Obtener el formulario padre
-      const formulario = botonMovimiento.closest('form');
-      if (formulario) {
-        // Crear un input hidden con el valor del botón
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = botonMovimiento.name; // 'seleccionar_casilla'
-        input.value = botonMovimiento.value; // 'E4', etc
-        formulario.appendChild(input);
-        
-        // Enviar el formulario manualmente
-        formulario.submit();
+  document.addEventListener(
+    "click",
+    function (e) {
+      // Si se hizo clic en el botón de movimiento o en su span hijo
+      const botonMovimiento = e.target.closest(".btn-movimiento");
+      if (botonMovimiento) {
+        e.preventDefault(); // Prevenir comportamiento por defecto
+        e.stopPropagation(); // Detener propagación
+
+        // Obtener el formulario padre
+        const formulario = botonMovimiento.closest("form");
+        if (formulario) {
+          // Crear un input hidden con el valor del botón
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = botonMovimiento.name; // 'seleccionar_casilla'
+          input.value = botonMovimiento.value; // 'E4', etc
+          formulario.appendChild(input);
+
+          // Enviar el formulario manualmente
+          formulario.submit();
+        }
       }
-    }
-  }, true); // Usar capture phase para capturar antes que otros listeners
+    },
+    true,
+  ); // Usar capture phase para capturar antes que otros listeners
 
   // Si no hay un intervalo de relojes activo, lo iniciamos
   if (!intervaloRelojes && document.getElementById("tiempo-blancas")) {
@@ -525,19 +529,19 @@ document.addEventListener("DOMContentLoaded", function () {
   // ========================================
   // Obtenemos los selectores de avatar (nueva estructura)
   const tipoBlancas = document.querySelector(
-    'select[name="tipo_avatar_blancas"]'
+    'select[name="tipo_avatar_blancas"]',
   );
   const tipoNegras = document.querySelector(
-    'select[name="tipo_avatar_negras"]'
+    'select[name="tipo_avatar_negras"]',
   );
   const fichaBlancas = document.querySelector(
-    'select[name="avatar_ficha_blancas"]'
+    'select[name="avatar_ficha_blancas"]',
   );
   const fichaNegras = document.querySelector(
-    'select[name="avatar_ficha_negras"]'
+    'select[name="avatar_ficha_negras"]',
   );
   const gifBlancas = document.querySelector(
-    'select[name="avatar_gif_blancas"]'
+    'select[name="avatar_gif_blancas"]',
   );
   const gifNegras = document.querySelector('select[name="avatar_gif_negras"]');
   const hiddenBlancas = document.getElementById("avatar_blancas_hidden");
@@ -633,15 +637,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // MANEJO DE AVATARES DEL JUGADOR BLANCO (nueva estructura)
   if (tipoBlancas && inputBlancas && hiddenBlancas) {
     const contenedorBlancas = document.getElementById(
-      "contenedor-personalizado-blancas"
+      "contenedor-personalizado-blancas",
     );
     const nombreArchivoBlancas = document.getElementById(
-      "nombre-archivo-blancas"
+      "nombre-archivo-blancas",
     );
     const contFichaBlancas = document.getElementById("opciones-ficha-blancas");
     const contGifBlancas = document.getElementById("opciones-gif-blancas");
     const contCampeonesBlancas = document.getElementById(
-      "opciones-campeones-blancas"
+      "opciones-campeones-blancas",
     );
 
     function setAvatarBlancas(valor) {
@@ -674,7 +678,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (v === "campeones") {
         if (contCampeonesBlancas) contCampeonesBlancas.style.display = "block";
         const campeonBlancas = document.querySelector(
-          'select[name="avatar_campeon_blancas"]'
+          'select[name="avatar_campeon_blancas"]',
         );
         if (campeonBlancas) {
           setAvatarBlancas(campeonBlancas.value);
@@ -697,7 +701,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
     const campeonBlancas = document.querySelector(
-      'select[name="avatar_campeon_blancas"]'
+      'select[name="avatar_campeon_blancas"]',
     );
     if (campeonBlancas) {
       campeonBlancas.addEventListener("change", function () {
@@ -717,15 +721,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // MANEJO DE AVATARES DEL JUGADOR NEGRO (nueva estructura)
   if (tipoNegras && inputNegras && hiddenNegras) {
     const contenedorNegras = document.getElementById(
-      "contenedor-personalizado-negras"
+      "contenedor-personalizado-negras",
     );
     const nombreArchivoNegras = document.getElementById(
-      "nombre-archivo-negras"
+      "nombre-archivo-negras",
     );
     const contFichaNegras = document.getElementById("opciones-ficha-negras");
     const contGifNegras = document.getElementById("opciones-gif-negras");
     const contCampeonesNegras = document.getElementById(
-      "opciones-campeones-negras"
+      "opciones-campeones-negras",
     );
 
     function setAvatarNegras(valor) {
@@ -753,7 +757,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (v === "campeones") {
         if (contCampeonesNegras) contCampeonesNegras.style.display = "block";
         const campeonNegras = document.querySelector(
-          'select[name="avatar_campeon_negras"]'
+          'select[name="avatar_campeon_negras"]',
         );
         if (campeonNegras) {
           setAvatarNegras(campeonNegras.value);
@@ -773,7 +777,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setAvatarNegras(this.value);
       });
     const campeonNegras = document.querySelector(
-      'select[name="avatar_campeon_negras"]'
+      'select[name="avatar_campeon_negras"]',
     );
     if (campeonNegras) {
       campeonNegras.addEventListener("change", function () {

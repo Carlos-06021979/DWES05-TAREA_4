@@ -804,7 +804,7 @@ function procesarJugada($partida)
   if (!isset($_SESSION['debug_log'])) {
     $_SESSION['debug_log'] = [];
   }
-  
+
   if (isset($_POST['seleccionar_casilla'])) {
     $log = "POST: " . $_POST['seleccionar_casilla'];
     $log .= " | Pausa: " . (isset($_SESSION['pausa']) ? ($_SESSION['pausa'] ? 'SÍ' : 'NO') : 'NO');
@@ -813,7 +813,7 @@ function procesarJugada($partida)
   } else {
     $_SESSION['debug_log'][] = "NO hay POST de seleccionar_casilla";
   }
-  
+
   // Inicializamos variables de sesión si no existen
   if (!isset($_SESSION['casilla_seleccionada'])) {
     $_SESSION['casilla_seleccionada'] = null;
